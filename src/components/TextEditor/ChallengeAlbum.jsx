@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 /** @jsxImportSource @emotion/react */
-import * as s from "./style";
+import * as s from "../../pages/DonationChallengerPage/style";
 
  function ChallengeAlbum({ uploadedImages  }) {
 

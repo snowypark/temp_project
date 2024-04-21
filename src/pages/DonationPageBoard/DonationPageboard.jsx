@@ -18,6 +18,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { getPrincipalRequest } from '../../apis/api/principal';
 import { getTeamInfoRequest, getTeamListRequest, getTeamMemberInfoRequest, getTeamMemberInfoRequest2 } from '../../apis/api/teamApi';
 import TextEditor from '../../components/TextEditor/TextEditor';
+import ChallengeAlbum from '../../components/TextEditor/ChallengeAlbum';
 
 
 function DonationPageboard() {
@@ -206,7 +207,20 @@ function DonationPageboard() {
         }
     };
 
+    const [uploadedImages, setUploadedImages] = useState([]);
 
+    const handleFileChange = (e) => {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+  
+      reader.onloadend = () => {
+        setUploadedImages((prevImages) => [...prevImages, reader.result]);
+      };
+  
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+    };
     return (
         <>
             <div>
@@ -282,6 +296,10 @@ function DonationPageboard() {
                 
                 <button>이미지 제거 </button>
             </div>
+
+            <h3>슬라이드</h3>
+            <input type="file" accept="image/*" onChange={handleFileChange} />
+            {uploadedImages.length > 0 && <ChallengeAlbum uploadedImages={uploadedImages} />}
 
             <TextEditor content={content} setContent={setContent} />
 
